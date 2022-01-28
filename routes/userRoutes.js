@@ -138,19 +138,4 @@ userRouter.delete('/admin/delete/:id', isAuth, isAdmin, expressAsyncHandler( asy
     }
 }))
 
-
-// follow
-userRouter.post('/:username/follow', isAuth, function(req, res, next){
-    var profileId = req.profile._id; // Нужен профиль короче какойто я не ебу какой и типо модель та же но это плюс мозгоёбство конкретное ауе
-  
-    User.findById(req.payload.id).then(function(user){
-      if (!user) { return res.sendStatus(401)}
-  
-      return user.follow(profileId).then(function(){
-        return res.json({profile: req.profile.toProfileJSONFor(user)})
-      });
-    }).catch(next)
-  });
-
-
 module.exports = userRouter
